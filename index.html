@@ -5,112 +5,276 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laboratoire de Capteurs - USMBA</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.1);
         }
         
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(252, 70, 107, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 90%, rgba(99, 102, 241, 0.3) 0%, transparent 50%);
+            animation: float 15s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+        
+        /* Glassmorphism Header */
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 2rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         
         header h1 {
             text-align: center;
             font-size: 2.5rem;
+            background: linear-gradient(135deg, #fff 0%, #f0f9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            letter-spacing: -1px;
             margin-bottom: 1rem;
+            animation: fadeInDown 0.8s ease;
         }
         
-        nav {
-            background-color: rgba(255,255,255,0.1);
-            padding: 1rem;
-            margin-top: 1rem;
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
+        /* Modern Navigation */
         nav ul {
             list-style: none;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 2rem;
+            gap: 0.5rem;
+            padding: 0 1rem;
         }
         
         nav a {
             color: white;
             text-decoration: none;
             font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+        
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        nav a:hover::before {
+            left: 100%;
         }
         
         nav a:hover {
-            background-color: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 1;
         }
         
+        /* Card with 3D Effect */
         .page-content {
-            background: white;
-            border-radius: 10px;
-            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3rem;
             margin-top: 2rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            animation: fadeInUp 0.6s ease;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
         }
         
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Lab Image with parallax */
         .lab-image {
             width: 100%;
-            max-width: 800px;
-            height: 400px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
+            max-width: 900px;
+            height: 450px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            border-radius: 20px;
             margin: 2rem auto;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 1.8rem;
+            font-weight: 600;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+            position: relative;
+            overflow: hidden;
+            animation: scaleIn 0.8s ease;
         }
         
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .lab-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.1) 50%,
+                transparent 70%
+            );
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        /* Sensor Cards */
         .sensor-list {
             list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
             padding: 0;
+            margin-top: 2rem;
         }
         
         .sensor-list li {
-            background: #f8f9fa;
-            margin: 1rem 0;
-            padding: 1rem;
-            border-left: 4px solid #667eea;
-            border-radius: 5px;
-            transition: transform 0.2s;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            padding: 0;
+            border-radius: 16px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sensor-list li::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+        
+        .sensor-list li:hover::before {
+            left: 100%;
         }
         
         .sensor-list li:hover {
-            transform: translateX(5px);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+            border-color: rgba(99, 102, 241, 0.4);
         }
         
         .sensor-list a {
-            color: #667eea;
+            color: var(--primary);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
+            font-weight: 600;
+            font-size: 1.2rem;
+            display: block;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
         }
         
+        /* Sensor Detail */
         .sensor-detail {
             display: grid;
             gap: 2rem;
@@ -118,121 +282,237 @@
         
         .sensor-image {
             width: 100%;
-            max-width: 500px;
-            height: 300px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
-            margin: 1rem auto;
+            max-width: 600px;
+            height: 350px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            border-radius: 20px;
+            margin: 1.5rem auto;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.2rem;
+            font-size: 3rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: rotateIn 0.8s ease;
+        }
+        
+        @keyframes rotateIn {
+            from {
+                opacity: 0;
+                transform: rotate(-10deg) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(0) scale(1);
+            }
         }
         
         .characteristics {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-top: 1rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .characteristics::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            pointer-events: none;
         }
         
         .characteristics h3 {
-            color: #667eea;
+            color: var(--primary);
             margin-bottom: 1rem;
-        }
-        
-        .characteristics ul {
-            list-style-position: inside;
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
         }
         
         .characteristics li {
-            padding: 0.5rem 0;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 1;
+            transition: transform 0.2s;
         }
         
+        .characteristics li:hover {
+            transform: translateX(5px);
+        }
+        
+        .characteristics li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Modern Table */
         table {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 2rem;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         th, td {
-            padding: 1rem;
+            padding: 1.25rem;
             text-align: left;
-            border-bottom: 1px solid #ddd;
         }
         
         th {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
         }
         
-        tr:hover {
-            background-color: #f8f9fa;
+        tbody tr {
+            background: white;
+            transition: all 0.3s ease;
         }
         
+        tbody tr:nth-child(even) {
+            background: rgba(99, 102, 241, 0.03);
+        }
+        
+        tbody tr:hover {
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            transform: scale(1.01);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Modern Form */
         form {
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
         }
         
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            animation: slideIn 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
         
         label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: #667eea;
-            font-weight: 500;
+            margin-bottom: 0.75rem;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
         }
         
         input, select, textarea {
             width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
+            padding: 1rem 1.25rem;
+            border: 2px solid rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
+            background: white;
+            font-family: 'Inter', sans-serif;
         }
         
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            transform: translateY(-2px);
         }
         
         textarea {
             resize: vertical;
-            min-height: 120px;
+            min-height: 140px;
         }
         
         button {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 1rem 2rem;
+            padding: 1.25rem 3rem;
             border: none;
-            border-radius: 5px;
-            font-size: 1rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        button:hover::before {
+            width: 300px;
+            height: 300px;
         }
         
         button:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.5);
+        }
+        
+        button:active {
+            transform: translateY(-1px);
         }
         
         .back-link {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             margin-top: 2rem;
-            color: #667eea;
+            color: var(--primary);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            background: rgba(99, 102, 241, 0.1);
+            transition: all 0.3s ease;
         }
         
         .back-link:hover {
-            text-decoration: underline;
+            background: rgba(99, 102, 241, 0.2);
+            transform: translateX(-5px);
         }
         
         .hidden {
@@ -240,22 +520,95 @@
         }
         
         h2 {
-            color: #667eea;
-            margin-bottom: 1rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
         }
         
         h3 {
-            color: #764ba2;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
         }
         
+        p {
+            line-height: 1.8;
+            color: #475569;
+        }
+        
+        /* Footer */
         footer {
-            background: #333;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(20px);
             color: white;
             text-align: center;
-            padding: 1.5rem;
-            margin-top: 3rem;
+            padding: 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            border-radius: 6px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--secondary), var(--accent));
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .page-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .sensor-list {
+                grid-template-columns: 1fr;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Loading Animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
     </style>
 </head>
@@ -264,11 +617,11 @@
         <h1>🔬 Laboratoire de Capteurs</h1>
         <nav>
             <ul>
-                <li><a href="#" onclick="showPage('index'); return false;">Accueil</a></li>
-                <li><a href="#" onclick="showPage('capteurs'); return false;">Liste des Capteurs</a></li>
-                <li><a href="#" onclick="showPage('tableau'); return false;">Tableau Récapitulatif</a></li>
-                <li><a href="#" onclick="showPage('formulaire'); return false;">Ajouter un Capteur</a></li>
-                <li><a href="#" onclick="showPage('apropos'); return false;">À propos</a></li>
+                <li><a href="#" onclick="showPage('index'); return false;">🏠 Accueil</a></li>
+                <li><a href="#" onclick="showPage('capteurs'); return false;">📊 Capteurs</a></li>
+                <li><a href="#" onclick="showPage('tableau'); return false;">📋 Tableau</a></li>
+                <li><a href="#" onclick="showPage('formulaire'); return false;">➕ Ajouter</a></li>
+                <li><a href="#" onclick="showPage('apropos'); return false;">ℹ️ À propos</a></li>
             </ul>
         </nav>
     </header>
@@ -277,7 +630,7 @@
         <!-- PAGE D'ACCUEIL -->
         <div id="index" class="page-content">
             <h2>Bienvenue au Laboratoire de Capteurs</h2>
-            <p style="font-size: 1.1rem; margin-top: 1rem; text-align: justify;">
+            <p style="font-size: 1.15rem; margin-top: 1.5rem; text-align: justify;">
                 Notre laboratoire de capteurs est un centre d'excellence dédié à la recherche et au développement 
                 dans le domaine des technologies de mesure et de détection. Équipé des instruments les plus modernes, 
                 nous offrons un environnement propice à l'innovation et à l'expérimentation. Notre collection comprend 
@@ -293,7 +646,7 @@
         <!-- LISTE DES CAPTEURS -->
         <div id="capteurs" class="page-content hidden">
             <h2>Liste des Capteurs Disponibles</h2>
-            <p style="margin-bottom: 2rem;">Découvrez notre collection complète de capteurs de mesure :</p>
+            <p style="margin-bottom: 2rem; font-size: 1.1rem;">Découvrez notre collection complète de capteurs de mesure :</p>
             <ul class="sensor-list">
                 <li><a href="#" onclick="showSensor(1); return false;">📡 Capteur de Température PT100</a></li>
                 <li><a href="#" onclick="showSensor(2); return false;">📏 Capteur de Déplacement LVDT</a></li>
@@ -308,7 +661,7 @@
             <h2>Capteur de Température PT100</h2>
             <div class="sensor-detail">
                 <div class="sensor-image">
-                    🌡️ PT100
+                    🌡️
                 </div>
                 <div>
                     <h3>Description</h3>
@@ -325,102 +678,6 @@
                             <li><strong>Plage de mesure :</strong> -200°C à +850°C</li>
                             <li><strong>Précision :</strong> ±0.15°C (Classe A)</li>
                             <li><strong>Temps de réponse :</strong> 2-5 secondes</li>
-                            <li><strong>Matériau :</strong> Platine haute pureté</li>
-                            <li><strong>Type de connexion :</strong> 2, 3 ou 4 fils</li>
-                            <li><strong>Applications :</strong> Processus industriels, laboratoires, climatisation</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <a href="#" class="back-link" onclick="showPage('capteurs'); return false;">← Retour à la liste</a>
-        </div>
-
-        <!-- DÉTAIL CAPTEUR 2 -->
-        <div id="capteur2" class="page-content hidden">
-            <h2>Capteur de Déplacement LVDT</h2>
-            <div class="sensor-detail">
-                <div class="sensor-image">
-                    📏 LVDT
-                </div>
-                <div>
-                    <h3>Description</h3>
-                    <p style="text-align: justify;">
-                        Le LVDT (Linear Variable Differential Transformer) est un capteur de déplacement sans contact 
-                        basé sur le principe de l'induction électromagnétique. Il se compose d'un transformateur avec 
-                        un enroulement primaire et deux enroulements secondaires symétriques, ainsi qu'un noyau 
-                        ferromagnétique mobile. Le déplacement du noyau modifie le couplage magnétique et génère 
-                        un signal de sortie proportionnel à la position.
-                    </p>
-                    
-                    <div class="characteristics">
-                        <h3>Caractéristiques Principales</h3>
-                        <ul>
-                            <li><strong>Plage de mesure :</strong> ±1 mm à ±500 mm</li>
-                            <li><strong>Précision :</strong> ±0.25% de la pleine échelle</li>
-                            <li><strong>Résolution :</strong> Théoriquement infinie</li>
-                            <li><strong>Fréquence de réponse :</strong> Jusqu'à 1 kHz</li>
-                            <li><strong>Avantages :</strong> Pas de contact mécanique, grande durabilité</li>
-                            <li><strong>Applications :</strong> Automatisation, contrôle qualité, recherche</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <a href="#" class="back-link" onclick="showPage('capteurs'); return false;">← Retour à la liste</a>
-        </div>
-
-        <!-- DÉTAIL CAPTEUR 3 -->
-        <div id="capteur3" class="page-content hidden">
-            <h2>Capteur de Pression Piézorésistif</h2>
-            <div class="sensor-detail">
-                <div class="sensor-image">
-                    ⚡ Piézorésistif
-                </div>
-                <div>
-                    <h3>Description</h3>
-                    <p style="text-align: justify;">
-                        Le capteur de pression piézorésistif utilise l'effet piézorésistif des semi-conducteurs pour 
-                        mesurer la pression. Lorsqu'une pression est appliquée sur une membrane flexible, elle se déforme 
-                        et modifie la résistance électrique des jauges piézorésistives intégrées dans le silicium. 
-                        Cette variation de résistance est convertie en signal électrique proportionnel à la pression appliquée.
-                    </p>
-                    
-                    <div class="characteristics">
-                        <h3>Caractéristiques Principales</h3>
-                        <ul>
-                            <li><strong>Plage de mesure :</strong> 0 à 1000 bar</li>
-                            <li><strong>Précision :</strong> ±0.5% de la pleine échelle</li>
-                            <li><strong>Temps de réponse :</strong> < 1 ms</li>
-                            <li><strong>Signal de sortie :</strong> 4-20 mA ou 0-10 V</li>
-                            <li><strong>Compensé en température :</strong> -40°C à +125°C</li>
-                            <li><strong>Applications :</strong> Hydraulique, pneumatique, automobile</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <a href="#" class="back-link" onclick="showPage('capteurs'); return false;">← Retour à la liste</a>
-        </div>
-
-        <!-- DÉTAIL CAPTEUR 4 -->
-        <div id="capteur4" class="page-content hidden">
-            <h2>Capteur de Force à Jauge de Contrainte</h2>
-            <div class="sensor-detail">
-                <div class="sensor-image">
-                    💪 Jauge de Contrainte
-                </div>
-                <div>
-                    <h3>Description</h3>
-                    <p style="text-align: justify;">
-                        Le capteur de force à jauge de contrainte est conçu pour mesurer avec précision les forces 
-                        appliquées. Il utilise des jauges de contrainte collées sur un corps d'épreuve qui se déforme 
-                        sous l'effet de la force. Ces jauges, constituées de fils ou de grilles métalliques, changent 
-                        de résistance lors de la déformation, permettant ainsi de quantifier la force appliquée.
-                    </p>
-                    
-                    <div class="characteristics">
-                        <h3>Caractéristiques Principales</h3>
-                        <ul>
-                            <li><strong>Plage de mesure :</strong> 0 à 50 kN</li>
-                            <li><strong>Précision :</strong> ±0.1% de la pleine échelle</li>
                             <li><strong>Matériau du corps :</strong> Acier inoxydable ou aluminium</li>
                             <li><strong>Type de configuration :</strong> Pont de Wheatstone complet</li>
                             <li><strong>Surcharge admissible :</strong> 150% de la capacité nominale</li>
@@ -437,7 +694,7 @@
             <h2>Capteur de Vitesse Tachymétrique</h2>
             <div class="sensor-detail">
                 <div class="sensor-image">
-                    🌀 Tachymètre
+                    🌀
                 </div>
                 <div>
                     <h3>Description</h3>
@@ -467,7 +724,7 @@
         <!-- TABLEAU RÉCAPITULATIF -->
         <div id="tableau" class="page-content hidden">
             <h2>Tableau Récapitulatif des Capteurs</h2>
-            <p style="margin-bottom: 1.5rem;">Vue d'ensemble des caractéristiques techniques de nos capteurs :</p>
+            <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">Vue d'ensemble des caractéristiques techniques de nos capteurs :</p>
             <table>
                 <thead>
                     <tr>
@@ -533,7 +790,7 @@
         <!-- FORMULAIRE -->
         <div id="formulaire" class="page-content hidden">
             <h2>Ajouter un Nouveau Capteur</h2>
-            <p style="text-align: center; margin-bottom: 2rem;">Remplissez le formulaire ci-dessous pour enregistrer un nouveau capteur :</p>
+            <p style="text-align: center; margin-bottom: 2.5rem; font-size: 1.1rem;">Remplissez le formulaire ci-dessous pour enregistrer un nouveau capteur :</p>
             <form onsubmit="handleSubmit(event)">
                 <div class="form-group">
                     <label for="nom">Nom du capteur :</label>
@@ -570,7 +827,7 @@
                     <textarea id="description" name="description" required placeholder="Décrivez les caractéristiques et applications du capteur..."></textarea>
                 </div>
                 
-                <button type="submit">Enregistrer le capteur</button>
+                <button type="submit">✨ Enregistrer le capteur</button>
             </form>
         </div>
 
@@ -594,10 +851,10 @@
             </p>
             
             <h3>Technologies Utilisées</h3>
-            <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
-                <li>HTML5 pour la structure et le contenu</li>
-                <li>CSS3 pour la mise en forme et le design responsive</li>
-                <li>JavaScript pour l'interactivité et la navigation</li>
+            <ul style="margin-left: 2rem; margin-bottom: 1.5rem; line-height: 2;">
+                <li>✅ HTML5 pour la structure et le contenu</li>
+                <li>🎨 CSS3 pour la mise en forme et le design responsive</li>
+                <li>⚡ JavaScript pour l'interactivité et la navigation</li>
             </ul>
             
             <h3>Université</h3>
@@ -607,11 +864,11 @@
                 Techniques de Fès forme des ingénieurs et des chercheurs dans divers domaines scientifiques et techniques.
             </p>
             
-            <p style="text-align: center; margin-top: 2rem;">
-                <a href="https://www.usmba.ac.ma" target="_blank" style="color: #667eea; font-weight: bold; font-size: 1.1rem; text-decoration: none; border: 2px solid #667eea; padding: 0.75rem 1.5rem; border-radius: 5px; display: inline-block; transition: all 0.3s;">
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="https://www.usmba.ac.ma" target="_blank" style="color: white; font-weight: bold; font-size: 1.1rem; text-decoration: none; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2.5rem; border-radius: 12px; display: inline-block; transition: all 0.3s; box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);">
                     🌐 Visiter le site de l'USMBA
                 </a>
-            </p>
+            </div>
         </div>
     </div>
 
@@ -624,14 +881,14 @@
             const pages = document.querySelectorAll('.page-content');
             pages.forEach(page => page.classList.add('hidden'));
             document.getElementById(pageId).classList.remove('hidden');
-            window.scrollTo(0, 0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
         function showSensor(sensorId) {
             const pages = document.querySelectorAll('.page-content');
             pages.forEach(page => page.classList.add('hidden'));
             document.getElementById('capteur' + sensorId).classList.remove('hidden');
-            window.scrollTo(0, 0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
         function handleSubmit(event) {
@@ -645,14 +902,143 @@
                 description: form.description.value
             };
             
-            alert('Capteur enregistré avec succès !\n\n' + 
-                  'Nom : ' + data.nom + '\n' +
-                  'Type : ' + data.type + '\n' +
-                  'Plage : 0 - ' + data.valeur + ' ' + data.unite + '\n' +
-                  'Description : ' + data.description);
+            const message = `✅ Capteur enregistré avec succès !\n\n` + 
+                  `📌 Nom : ${data.nom}\n` +
+                  `📊 Type : ${data.type}\n` +
+                  `📏 Plage : 0 - ${data.valeur} ${data.unite}\n` +
+                  `📝 Description : ${data.description}`;
             
+            alert(message);
             form.reset();
+            
+            // Animation de succès
+            const button = form.querySelector('button');
+            button.textContent = '✓ Enregistré !';
+            button.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+            setTimeout(() => {
+                button.textContent = '✨ Enregistrer le capteur';
+                button.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            }, 2000);
         }
+        
+        // Parallax effect on scroll
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.page-content');
+            cards.forEach(card => {
+                if (!card.classList.contains('hidden')) {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 50;
+                    const rotateY = (centerX - x) / 50;
+                    
+                    if (e.clientX >= rect.left && e.clientX <= rect.right && 
+                        e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+                    } else {
+                        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                    }
+                }
+            });
+        });
     </script>
 </body>
-</html>
+</html> :</strong> Platine haute pureté</li>
+                            <li><strong>Type de connexion :</strong> 2, 3 ou 4 fils</li>
+                            <li><strong>Applications :</strong> Processus industriels, laboratoires, climatisation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="back-link" onclick="showPage('capteurs'); return false;">← Retour à la liste</a>
+        </div>
+
+        <!-- DÉTAIL CAPTEUR 2 -->
+        <div id="capteur2" class="page-content hidden">
+            <h2>Capteur de Déplacement LVDT</h2>
+            <div class="sensor-detail">
+                <div class="sensor-image">
+                    📏
+                </div>
+                <div>
+                    <h3>Description</h3>
+                    <p style="text-align: justify;">
+                        Le LVDT (Linear Variable Differential Transformer) est un capteur de déplacement sans contact 
+                        basé sur le principe de l'induction électromagnétique. Il se compose d'un transformateur avec 
+                        un enroulement primaire et deux enroulements secondaires symétriques, ainsi qu'un noyau 
+                        ferromagnétique mobile. Le déplacement du noyau modifie le couplage magnétique et génère 
+                        un signal de sortie proportionnel à la position.
+                    </p>
+                    
+                    <div class="characteristics">
+                        <h3>Caractéristiques Principales</h3>
+                        <ul>
+                            <li><strong>Plage de mesure :</strong> ±1 mm à ±500 mm</li>
+                            <li><strong>Précision :</strong> ±0.25% de la pleine échelle</li>
+                            <li><strong>Résolution :</strong> Théoriquement infinie</li>
+                            <li><strong>Fréquence de réponse :</strong> Jusqu'à 1 kHz</li>
+                            <li><strong>Avantages :</strong> Pas de contact mécanique, grande durabilité</li>
+                            <li><strong>Applications :</strong> Automatisation, contrôle qualité, recherche</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="back-link" onclick="showPage('capteurs'); return false;">← Retour à la liste</a>
+        </div>
+
+        <!-- DÉTAIL CAPTEUR 3 -->
+        <div id="capteur3" class="page-content hidden">
+            <h2>Capteur de Pression Piézorésistif</h2>
+            <div class="sensor-detail">
+                <div class="sensor-image">
+                    ⚡
+                </div>
+                <div>
+                    <h3>Description</h3>
+                    <p style="text-align: justify;">
+                        Le capteur de pression piézorésistif utilise l'effet piézorésistif des semi-conducteurs pour 
+                        mesurer la pression. Lorsqu'une pression est appliquée sur une membrane flexible, elle se déforme 
+                        et modifie la résistance électrique des jauges piézorésistives intégrées dans le silicium. 
+                        Cette variation de résistance est convertie en signal électrique proportionnel à la pression appliquée.
+                    </p>
+                    
+                    <div class="characteristics">
+                        <h3>Caractéristiques Principales</h3>
+                        <ul>
+                            <li><strong>Plage de mesure :</strong> 0 à 1000 bar</li>
+                            <li><strong>Précision :</strong> ±0.5% de la pleine échelle</li>
+                            <li><strong>Temps de réponse :</strong> < 1 ms</li>
+                            <li><strong>Signal de sortie :</strong> 4-20 mA ou 0-10 V</li>
+                            <li><strong>Compensé en température :</strong> -40°C à +125°C</li>
+                            <li><strong>Applications :</strong> Hydraulique, pneumatique, automobile</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="back-link" onclick="showPage('capteurs'); return false;">← Retour à la liste</a>
+        </div>
+
+        <!-- DÉTAIL CAPTEUR 4 -->
+        <div id="capteur4" class="page-content hidden">
+            <h2>Capteur de Force à Jauge de Contrainte</h2>
+            <div class="sensor-detail">
+                <div class="sensor-image">
+                    💪
+                </div>
+                <div>
+                    <h3>Description</h3>
+                    <p style="text-align: justify;">
+                        Le capteur de force à jauge de contrainte est conçu pour mesurer avec précision les forces 
+                        appliquées. Il utilise des jauges de contrainte collées sur un corps d'épreuve qui se déforme 
+                        sous l'effet de la force. Ces jauges, constituées de fils ou de grilles métalliques, changent 
+                        de résistance lors de la déformation, permettant ainsi de quantifier la force appliquée.
+                    </p>
+                    
+                    <div class="characteristics">
+                        <h3>Caractéristiques Principales</h3>
+                        <ul>
+                            <li><strong>Plage de mesure :</strong> 0 à 50 kN</li>
+                            <li><strong>Précision :</strong> ±0.1% de la pleine échelle</li>
+                            <li><strong>Matériau
