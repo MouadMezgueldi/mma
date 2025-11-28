@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratoire de Capteurs - USMBA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        nav {
+            background-color: rgba(255,255,255,0.1);
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-content {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .lab-image {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .sensor-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sensor-list li {
+            background: #f8f9fa;
+            margin: 1rem 0;
+            padding: 1rem;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+            transition: transform 0.2s;
+        }
+        
+        .sensor-list li:hover {
+            transform: translateX(5px);
+        }
+        
+        .sensor-list a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+        
+        .sensor-detail {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .sensor-image {
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            margin: 1rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .characteristics {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        
+        .characteristics h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        .characteristics ul {
+            list-style-position: inside;
+        }
+        
+        .characteristics li {
+            padding: 0.5rem 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+            font-weight: 500;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        h3 {
+            color: #764ba2;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🔬 Laboratoire de Capteurs</h1>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showPage('index'); return false;">Accueil</a></li>
+                <li><a href="#" onclick="showPage('capteurs'); return false;">Liste des Capteurs</a></li>
+                <li><a href="#" onclick="showPage('tableau'); return false;">Tableau Récapitulatif</a></li>
+                <li><a href="#" onclick="showPage('formulaire'); return false;">Ajouter un Capteur</a></li>
+                <li><a href="#" onclick="showPage('apropos'); return false;">À propos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- PAGE D'ACCUEIL -->
+        <div id="index" class="page-content">
+            <h2>Bienvenue au Laboratoire de Capteurs</h2>
+            <p style="font-size: 1.1rem; margin-top: 1rem; text-align: justify;">
+                Notre laboratoire de capteurs est un centre d'excellence dédié à la recherche et au développement 
+                dans le domaine des technologies de mesure et de détection. Équipé des instruments les plus modernes, 
+                nous offrons un environnement propice à l'innovation et à l'expérimentation. Notre collection comprend 
+                une variété de capteurs de haute précision couvrant différents domaines : température, pression, 
+                déplacement, force, et bien d'autres. Ces équipements permettent à nos étudiants et chercheurs 
+                de mener des projets ambitieux et de contribuer à l'avancement des connaissances scientifiques.
+            </p>
+            <div class="lab-image">
+                <span>🏭 Laboratoire de Capteurs - FST Fès</span>
+            </div>
+        </div>
+
+        <!-- LISTE DES CAPTEURS -->
+        <div id="capteurs" class="page-content hidden">
+            <h2>Liste des Capteurs Disponibles</h2>
+            <p style="margin-bottom: 2rem;">Découvrez notre collection complète de capteurs de mesure :</p>
+            <ul class="sensor-list">
+                <li><a href="#" onclick="showSensor(1); return false;">📡 Capteur de Température PT100</a></li>
+                <li><a href="#" onclick="showSensor(2); return false;">📏 Capteur de Déplacement LVDT</a></li>
+                <li><a href="#" onclick="showSensor(3); return false;">⚡ Capteur de Pression Piézorésistif</a></li>
+                <li><a href="#" onclick="showSensor(4); return false;">💪 Capteur de Force à Jauge de Contrainte</a></li>
+                <li><a href="#" onclick="showSensor(5); return false;">🌀 Capteur de Vitesse Tachymétrique</a></li>
+            </ul>
+        </div>
+
+        <!-- DÉTAIL CAPTEUR 1 -->
+        <div id="capteur1" class="page-content hidden">
+            <h2>Capteur de Température PT100</h2>
+            <div class="sensor-detail">
+                <div class="sensor-image">
+                    🌡️ PT100
+                </div>
+                <div>
+                    <h3>Description</h3>
+                    <p style="text-align: justify;">
+                        Le capteur PT100 est une sonde de température à résistance de platine (RTD) largement utilisée 
+                        dans l'industrie pour sa grande précision et sa stabilité exceptionnelle. Il tire son nom de sa 
+                        résistance nominale de 100 ohms à 0°C. Ce capteur exploite le principe de variation de résistance 
+                        électrique du platine en fonction de la température, offrant ainsi une mesure fiable et reproductible.
+                    </p>
+                    
+                    <div class="characteristics">
+                        <h3>Caractéristiques Principales</h3>
+                        <ul>
+                            <li><strong>Plage de mesure :</strong> -200°C à +850°C</li>
+                            <li><strong>Précision :</strong> ±0.15°C (Classe A)</li>
+                            <li><strong>Temps de réponse :</strong> 2-5 secondes</li>
+                            <li><strong>Matériau :</strong> Platine haute pureté</li>
+                            <li><strong>Type de connexion :</strong> 2, 3 ou 4 fils</li>
+                            <li><strong>Applications :</strong> Processus industriels, laboratoires, climatisation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="back-link" onclick="showPage('capteurs'); return false;">← Retour à la liste</a>
+        </div>
+
+        <!-- DÉTAIL CAPTEUR 2 -->
+        <div id="capteur2" class="page-content hidden">
+            <h2>Capteur de Déplacement LVDT</h2>
+            <div class="sensor-detail">
+                <div class="sensor-image">
+                    📏 LVDT
+                </div>
+                <div>
+                    <h3>Description</h3>
+                    <p style="text-align: justify;">
+                        Le LVDT (Linear Variable Differential Transformer) est un capteur de déplacement sans contact 
+                        basé sur le principe de l'induction électromagnétique. Il se compose d'un transformateur avec 
+                        un enroulement primaire et deux enroulements secondaires symétriques, ainsi qu'un noyau 
+                        ferromagnétique mobile. Le déplacement du noyau modifie le couplage magnétique et génère 
+                        un signal de sortie proportionnel à la position.
+                    </p>
+                    
+                    <div class="characteristics">
+                        <h3>Caractéristiques Principales</h3>
+                        <ul>
+                            <li><strong>Plage de mesure :</strong> ±1 mm à ±500 mm</li>
+                            <li><strong>Précision :</strong> ±0.25% de la pleine échelle</li>
+                            <li><strong>Résolution :</strong> Théoriquement infinie</li>
+                            <li><strong>Fréquence de réponse :</strong> Jusqu'à 1 kHz</li>
+                            <li><strong>Avantages :</strong> Pas de contact mécanique, grande durabilité</li>
+                            <li><strong>Applications :</strong> Automatisation, contrôle qualité, recherche</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="back-link" onclick="showPage('capteurs'); return false;">← Retour à la liste</a>
+        </div>
+
+        <!-- DÉTAIL CAPTEUR 3 -->
+        <div id="capteur3" class="page-content hidden">
+            <h2>Capteur de Pression Piézorésistif</h2>
+            <div class="sensor-detail">
+                <div class="sensor-image">
+                    ⚡ Piézorésistif
+                </div>
+                <div>
+                    <h3>Description</h3>
+                    <p style="text-align: justify;">
+                        Le capteur de pression piézorésistif utilise l'effet piézorésistif des semi-conducteurs pour 
+                        mesurer la pression. Lorsqu'une pression est appliquée sur une membrane flexible, elle se déforme 
+                        et modifie la résistance électrique des jauges piézorésistives intégrées dans le silicium. 
+                        Cette variation de résistance est convertie en signal électrique proportionnel à la pression appliquée.
+                    </p>
+                    
+                    <div class="characteristics">
+                        <h3>Caractéristiques Principales</h3>
+                        <ul>
+                            <li><strong>Plage de mesure :</strong> 0 à 1000 bar</li>
+                            <li><strong>Précision :</strong> ±0.5% de la pleine échelle</li>
+                            <li><strong>Temps de réponse :</strong> < 1 ms</li>
+                            <li><strong>Signal de sortie :</strong> 4-20 mA ou 0-10 V</li>
+                            <li><strong>Compensé en température :</strong> -40°C à +125°C</li>
+                            <li><strong>Applications :</strong> Hydraulique, pneumatique, automobile</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="back-link" onclick="showPage('capteurs'); return false;">← Retour à la liste</a>
+        </div>
+
+        <!-- DÉTAIL CAPTEUR 4 -->
+        <div id="capteur4" class="page-content hidden">
+            <h2>Capteur de Force à Jauge de Contrainte</h2>
+            <div class="sensor-detail">
+                <div class="sensor-image">
+                    💪 Jauge de Contrainte
+                </div>
+                <div>
+                    <h3>Description</h3>
+                    <p style="text-align: justify;">
+                        Le capteur de force à jauge de contrainte est conçu pour mesurer avec précision les forces 
+                        appliquées. Il utilise des jauges de contrainte collées sur un corps d'épreuve qui se déforme 
+                        sous l'effet de la force. Ces jauges, constituées de fils ou de grilles métalliques, changent 
+                        de résistance lors de la déformation, permettant ainsi de quantifier la force appliquée.
+                    </p>
+                    
+                    <div class="characteristics">
+                        <h3>Caractéristiques Principales</h3>
+                        <ul>
+                            <li><strong>Plage de mesure :</strong> 0 à 50 kN</li>
+                            <li><strong>Précision :</strong> ±0.1% de la pleine échelle</li>
+                            <li><strong>Matériau du corps :</strong> Acier inoxydable ou aluminium</li>
+                            <li><strong>Type de configuration :</strong> Pont de Wheatstone complet</li>
+                            <li><strong>Surcharge admissible :</strong> 150% de la capacité nominale</li>
+                            <li><strong>Applications :</strong> Pesage, essais mécaniques, contrôle de production</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="back-link" onclick="showPage('capteurs'); return false;">← Retour à la liste</a>
+        </div>
+
+        <!-- DÉTAIL CAPTEUR 5 -->
+        <div id="capteur5" class="page-content hidden">
+            <h2>Capteur de Vitesse Tachymétrique</h2>
+            <div class="sensor-detail">
+                <div class="sensor-image">
+                    🌀 Tachymètre
+                </div>
+                <div>
+                    <h3>Description</h3>
+                    <p style="text-align: justify;">
+                        Le capteur de vitesse tachymétrique est un dispositif électromagnétique qui génère une tension 
+                        proportionnelle à la vitesse de rotation d'un arbre. Il fonctionne selon le principe de 
+                        l'induction électromagnétique : un aimant permanent tourne devant une bobine fixe, créant ainsi 
+                        une tension dont la fréquence et l'amplitude sont directement liées à la vitesse de rotation.
+                    </p>
+                    
+                    <div class="characteristics">
+                        <h3>Caractéristiques Principales</h3>
+                        <ul>
+                            <li><strong>Plage de mesure :</strong> 0 à 10000 tr/min</li>
+                            <li><strong>Précision :</strong> ±1% de la valeur mesurée</li>
+                            <li><strong>Signal de sortie :</strong> Tension AC proportionnelle</li>
+                            <li><strong>Coefficient :</strong> 10 mV/tr/min typique</li>
+                            <li><strong>Résistance interne :</strong> 500-2000 Ω</li>
+                            <li><strong>Applications :</strong> Moteurs électriques, turbines, machines-outils</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="back-link" onclick="showPage('capteurs'); return false;">← Retour à la liste</a>
+        </div>
+
+        <!-- TABLEAU RÉCAPITULATIF -->
+        <div id="tableau" class="page-content hidden">
+            <h2>Tableau Récapitulatif des Capteurs</h2>
+            <p style="margin-bottom: 1.5rem;">Vue d'ensemble des caractéristiques techniques de nos capteurs :</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type de Capteur</th>
+                        <th>Marque</th>
+                        <th>Plage de Mesure</th>
+                        <th>Précision</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Température PT100</td>
+                        <td>Heraeus</td>
+                        <td>-200°C à +850°C</td>
+                        <td>±0.15°C</td>
+                    </tr>
+                    <tr>
+                        <td>Déplacement LVDT</td>
+                        <td>Schaevitz</td>
+                        <td>±100 mm</td>
+                        <td>±0.25%</td>
+                    </tr>
+                    <tr>
+                        <td>Pression Piézorésistif</td>
+                        <td>Keller</td>
+                        <td>0 à 1000 bar</td>
+                        <td>±0.5%</td>
+                    </tr>
+                    <tr>
+                        <td>Force (Jauge)</td>
+                        <td>HBM</td>
+                        <td>0 à 50 kN</td>
+                        <td>±0.1%</td>
+                    </tr>
+                    <tr>
+                        <td>Vitesse Tachymétrique</td>
+                        <td>Baumer</td>
+                        <td>0 à 10000 tr/min</td>
+                        <td>±1%</td>
+                    </tr>
+                    <tr>
+                        <td>Humidité Capacitif</td>
+                        <td>Sensirion</td>
+                        <td>0 à 100% RH</td>
+                        <td>±2%</td>
+                    </tr>
+                    <tr>
+                        <td>Débit Ultrasonique</td>
+                        <td>Siemens</td>
+                        <td>0 à 500 m³/h</td>
+                        <td>±0.5%</td>
+                    </tr>
+                    <tr>
+                        <td>Niveau Radar</td>
+                        <td>Endress+Hauser</td>
+                        <td>0 à 30 m</td>
+                        <td>±3 mm</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- FORMULAIRE -->
+        <div id="formulaire" class="page-content hidden">
+            <h2>Ajouter un Nouveau Capteur</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Remplissez le formulaire ci-dessous pour enregistrer un nouveau capteur :</p>
+            <form onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="nom">Nom du capteur :</label>
+                    <input type="text" id="nom" name="nom" required placeholder="Ex: PT100 Premium">
+                </div>
+                
+                <div class="form-group">
+                    <label for="type">Type de capteur :</label>
+                    <select id="type" name="type" required>
+                        <option value="">-- Sélectionnez un type --</option>
+                        <option value="temperature">Température</option>
+                        <option value="pression">Pression</option>
+                        <option value="deplacement">Déplacement</option>
+                        <option value="force">Force</option>
+                        <option value="vitesse">Vitesse</option>
+                        <option value="humidite">Humidité</option>
+                        <option value="debit">Débit</option>
+                        <option value="niveau">Niveau</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="valeur">Plage de mesure (valeur maximale) :</label>
+                    <input type="number" id="valeur" name="valeur" required placeholder="Ex: 850" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="unite">Unité de mesure :</label>
+                    <input type="text" id="unite" name="unite" required placeholder="Ex: °C, bar, mm, N">
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Description :</label>
+                    <textarea id="description" name="description" required placeholder="Décrivez les caractéristiques et applications du capteur..."></textarea>
+                </div>
+                
+                <button type="submit">Enregistrer le capteur</button>
+            </form>
+        </div>
+
+        <!-- À PROPOS -->
+        <div id="apropos" class="page-content hidden">
+            <h2>À propos du Projet</h2>
+            
+            <h3>Contexte</h3>
+            <p style="text-align: justify; margin-bottom: 1.5rem;">
+                Ce site web a été développé dans le cadre du module "Développement Web" de la 
+                <strong>Faculté des Sciences et Techniques de Fès</strong>, appartenant à 
+                l'<strong>Université Sidi Mohammed Ben Abdellah (USMBA)</strong>. Il s'agit d'un projet pédagogique 
+                visant à démontrer la maîtrise des technologies web fondamentales, notamment HTML5, CSS3 et JavaScript.
+            </p>
+            
+            <h3>Objectifs du Projet</h3>
+            <p style="text-align: justify; margin-bottom: 1.5rem;">
+                L'objectif principal est de créer un site web complet et fonctionnel pour la gestion et la présentation 
+                des capteurs d'un laboratoire. Ce projet permet de mettre en pratique les concepts de structuration HTML, 
+                de stylisation CSS, de navigation entre pages, de création de formulaires et de manipulation du DOM en JavaScript.
+            </p>
+            
+            <h3>Technologies Utilisées</h3>
+            <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+                <li>HTML5 pour la structure et le contenu</li>
+                <li>CSS3 pour la mise en forme et le design responsive</li>
+                <li>JavaScript pour l'interactivité et la navigation</li>
+            </ul>
+            
+            <h3>Université</h3>
+            <p style="text-align: justify; margin-bottom: 1rem;">
+                L'Université Sidi Mohammed Ben Abdellah est l'une des plus grandes universités du Maroc, reconnue 
+                pour l'excellence de ses formations et de sa recherche scientifique. La Faculté des Sciences et 
+                Techniques de Fès forme des ingénieurs et des chercheurs dans divers domaines scientifiques et techniques.
+            </p>
+            
+            <p style="text-align: center; margin-top: 2rem;">
+                <a href="https://www.usmba.ac.ma" target="_blank" style="color: #667eea; font-weight: bold; font-size: 1.1rem; text-decoration: none; border: 2px solid #667eea; padding: 0.75rem 1.5rem; border-radius: 5px; display: inline-block; transition: all 0.3s;">
+                    🌐 Visiter le site de l'USMBA
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Laboratoire de Capteurs - FST Fès - USMBA | Tous droits réservés</p>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => page.classList.add('hidden'));
+            document.getElementById(pageId).classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+        
+        function showSensor(sensorId) {
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => page.classList.add('hidden'));
+            document.getElementById('capteur' + sensorId).classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+        
+        function handleSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const data = {
+                nom: form.nom.value,
+                type: form.type.value,
+                valeur: form.valeur.value,
+                unite: form.unite.value,
+                description: form.description.value
+            };
+            
+            alert('Capteur enregistré avec succès !\n\n' + 
+                  'Nom : ' + data.nom + '\n' +
+                  'Type : ' + data.type + '\n' +
+                  'Plage : 0 - ' + data.valeur + ' ' + data.unite + '\n' +
+                  'Description : ' + data.description);
+            
+            form.reset();
+        }
+    </script>
+</body>
+</html>
